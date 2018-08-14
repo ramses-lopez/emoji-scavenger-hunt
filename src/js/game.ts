@@ -29,11 +29,11 @@ import {SPEECH_SPRITE_TIMESTAMPS} from './speech_sprite_timestamps';
 import {EmojiItem, EMOJIS_LVL_1, EMOJIS_LVL_2, EMOJIS_LVL_3, EMOJIS_LVL_4,
      EMOJIS_LVL_5, EMOJIS_LVL_DEMO} from './game_levels';
 
-export const GAME_START_TIME = 20;
+export const GAME_START_TIME = 100;
 export const GAME_EXTEND_TIME = 10;
 export const GAME_MAX_ITEMS = 10;
 const SPEAKING_DELAY = 2500; // 2.5 seconds
-const GAME_TIMER_DELAY = 1000; // 1 second
+// const GAME_TIMER_DELAY = 1000; // 1 second
 
 export interface EmojiLevelsLookup {
   [index: string]: Array<EmojiItem>;
@@ -123,7 +123,7 @@ export class Game {
   /** An array of snapshots taken when the model finds an emoji. */
   endGamePhotos: Array<HTMLImageElement>;
   demoMode = false;
-  debugMode = false;
+  debugMode = true;
   gameIsPaused = false;
   firstRun = true;
   firstSpeak = true;
@@ -473,12 +473,12 @@ export class Game {
     this.isRunning = true;
 
     this.pauseAudio(AUDIO.COUNTDOWN);
-    this.playAudio(AUDIO.GAME_LOOP, true);
+    // this.playAudio(AUDIO.GAME_LOOP, true);
 
-    this.timerAtStartOfRound = this.timer;
-    this.timerInterval = window.setInterval(() => {
-      this.handleGameTimerCountdown();
-    }, GAME_TIMER_DELAY);
+    // this.timerAtStartOfRound = this.timer;
+    // this.timerInterval = window.setInterval(() => {
+    //   this.handleGameTimerCountdown();
+    // }, GAME_TIMER_DELAY);
 
     this.speakInterval = window.setInterval(() => {
       let msg = ui.sleuthSpeakingSeeingMsg;
@@ -566,8 +566,8 @@ export class Game {
         let msgSpeak = new SpeechSynthesisUtterance();
         msgSpeak.voice = this.sleuthVoice['activeVoice'];
         msgSpeak.text = msg;
-
-        speechSynthesis.speak(msgSpeak);
+        console.log(msg);
+        //speechSynthesis.speak(msgSpeak);
       }
     }
   }
